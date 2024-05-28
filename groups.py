@@ -2,6 +2,7 @@ import time
 
 from selenium import webdriver
 from selenium.common import StaleElementReferenceException, TimeoutException
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -18,11 +19,11 @@ wait = WebDriverWait(driver, 10)
 
 loginMail = wait.until(ec.visibility_of_element_located((By.NAME, 'email')))
 loginMail.click()
-loginMail.send_keys('youremail@gmail.com')
+loginMail.send_keys('email@gmail.com')
 
 loginPassword = wait.until(ec.visibility_of_element_located((By.NAME, 'pass')))
 loginPassword.click()
-loginPassword.send_keys('yourPassword')
+loginPassword.send_keys('password')
 
 loginButton = wait.until(ec.element_to_be_clickable((By.NAME, 'login')))
 loginButton.click()
@@ -34,9 +35,32 @@ time.sleep(5)
 
 driver.get('https://www.facebook.com/pages/creation/')
 
-pageName = wait.until(ec.presence_of_all_elements_located((By.ID, ':r20:')))
-pageName.send_keys('Test Page')
+# pageName = wait.until(ec.visibility_of_element_located((By.ID, ':r2e:')))
+# pageName.send_keys('Test Page')
+
 time.sleep(5)
-pageCategory = wait.until(ec.visibility_of_element_located((By.ID, ':r20:')))
-pageCategory.click()
-pageCategory.send_keys('Education')
+driver.switch_to.active_element.send_keys('Testee Page')
+time.sleep(3)
+
+driver.switch_to.active_element.send_keys(Keys.TAB)
+driver.switch_to.active_element.send_keys(Keys.TAB)
+
+# pageName.send_keys(Keys.TAB)
+driver.switch_to.active_element.send_keys('Education')
+
+wait = WebDriverWait(driver, 5)
+dropdown_option = wait.until(ec.visibility_of_element_located((By.ID, '2704')))
+
+dropdown_option.click()
+
+createPageButton = wait.until(ec.visibility_of_element_located((By.XPATH, '//div[@aria-label="Create Page"]')))
+createPageButton.click()
+
+time.sleep(20)
+
+# print(pageName[0].get_attribute('outerHTML'))
+# pageName.send_keys('Test Page')
+# time.sleep(5)
+# pageCategory = wait.until(ec.visibility_of_element_located((By.ID, ':r20:')))
+# pageCategory.click()
+# pageCategory.send_keys('Education')
